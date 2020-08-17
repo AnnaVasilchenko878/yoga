@@ -29,5 +29,43 @@ window.addEventListener('DOMContentLoaded', function () {
                 }
             }
         };
-    })
+    });
+
+    let deadline = '2020-08-25';
+
+    function countDeadline(endtime) {
+        let time = Date.parse(endtime) - Date.parse(new Date()),
+            seconds = Math.floor((time / 1000) % 60),
+            minutes = Math.floor((time / 1000 / 60) % 60),
+            hours = Math.floor(time / (1000 * 60 * 60));
+
+        return {
+            'total': time,
+            'hours': hours,
+            'minutes': minutes,
+            'seconds': seconds
+        };
+    };
+
+    function startClock(id, endtime) {
+        let timer = document.getElementById(id),
+            hours = timer.querySelector('.hours'),
+            minutes = timer.querySelector('.minutes'),
+            seconds = timer.querySelector('.seconds');
+
+        function reloadClock() {
+            let time = countDeadline(endtime);
+            hours.innerHTML = time.hours;
+            minutes.innerHTML = time.minutes;
+            seconds.innerHTML = time.seconds;
+
+            if (time.total <= 0) {
+                clearInterval(timeInterval);
+            }
+        };
+        reloadClock();
+        let timeInterval = setInterval(reloadClock, 1000);
+    };
+    startClock('timer', deadline);
+
 });

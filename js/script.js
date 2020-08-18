@@ -67,5 +67,20 @@ window.addEventListener('DOMContentLoaded', function () {
         let timeInterval = setInterval(reloadClock, 1000);
     };
     startClock('timer', deadline);
+    // modals
+    let btnModalOpen = document.querySelector('.more'),
+        btnModalClose = document.querySelector('.popup-close'),
+        modal = document.querySelector('.overlay');
 
+    btnModalOpen.addEventListener('click', function () {
+        this.classList.add('more-splash');
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    });
+
+    btnModalClose.addEventListener('click', function () {
+        modal.style.display = 'none';
+        btnModalOpen.classList.remove('more-splash');
+        document.body.style.overflow = '';
+    });
 });
